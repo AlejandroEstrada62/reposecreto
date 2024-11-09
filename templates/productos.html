@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Productos - Himo Asobi</title>
+</head>
+<body>
+    <nav>
+        <a href="/">Inicio</a>
+        <a href="/productos/juguetes">Juguetes</a>
+        <a href="/productos/keyrings">Keyrings</a>
+        <a href="/productos/accesorios">Accesorios</a>
+        <a href="/carrito">Carrito</a>
+    </nav>
+
+    <h2>Productos de {{ tipo }}</h2>
+    <ul>
+        {% for producto in productos %}
+            <li>
+                <a href="/producto/{{ producto['_id'] }}">
+                    <img src="{{ producto['imagen_url'] }}" alt="{{ producto['nombre'] }}">
+                    <p>{{ producto['nombre'] }}</p>
+                    <p>${{ producto['precio'] }}</p>
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
