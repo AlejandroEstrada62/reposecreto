@@ -1,8 +1,8 @@
 # app.py
 from flask import Flask, render_template, request, redirect, url_for
 from pymongo import MongoClient
-import config
 
+import config
 app = Flask(__name__)
 
 # Conectar a MongoDB
