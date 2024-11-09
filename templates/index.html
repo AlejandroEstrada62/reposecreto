@@ -1,25 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>E-commerce</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Himo Asobi</title>
 </head>
-<body class="bg-gray-100">
-    <div class="container mx-auto p-4">
-        <h1 class="text-2xl font-bold mb-4">Productos</h1>
-        <div class="grid grid-cols-3 gap-4">
-            {% for producto in productos %}
-            <div class="bg-white p-4 shadow-md">
-                <h2 class="text-xl font-semibold">{{ producto.nombre }}</h2>
-                <p class="text-gray-700">{{ producto.descripcion }}</p>
-                <p class="font-bold">Precio: ${{ producto.precio }}</p>
-                <a href="{{ url_for('add_to_cart', product_id=producto._id) }}" class="text-blue-500 mt-2 inline-block">Agregar al carrito</a>
-            </div>
-            {% endfor %}
+<body>
+    <!-- Nav -->
+    <nav>
+        <a href="/">Inicio</a>
+        <a href="/productos/juguetes">Juguetes</a>
+        <a href="/productos/keyrings">Keyrings</a>
+        <a href="/productos/accesorios">Accesorios</a>
+        <a href="/carrito">Carrito</a>
+        <a href="/perfil">Perfil</a>
+    </nav>
+
+    <!-- Hero -->
+    <header>
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo Himo Asobi">
+        <h1>Bienvenido a Himo Asobi</h1>
+        <div>
+            <a href="/productos/juguetes"><img src="imagen_juguetes.jpeg" alt="Juguetes"></a>
+            <a href="/productos/keyrings"><img src="imagen_keyrings.jpeg" alt="Keyrings"></a>
+            <a href="/productos/accesorios"><img src="imagen_accesorios.jpeg" alt="Accesorios"></a>
         </div>
-        <a href="{{ url_for('cart') }}" class="block mt-4 text-blue-600">Ver carrito</a>
-    </div>
+    </header>
 </body>
 </html>

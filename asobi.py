@@ -1,55 +1,47 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, session
+# app.py
+from flask import Flask, render_template, request, redirect, url_for
 from pymongo import MongoClient
-from pymongo.server_api import ServerApi
-from productos import productos_collection
-
+import config
 
 app = Flask(__name__)
-app.secret_key = 'secret_key'
 
-# Modificar la configuración del cliente MongoDB
-uri = 'mongodb+srv://estradaf809:gmRuDE6tWCmf2B7A@cluster0.8tkxz.mongodb.net/jalawei?retryWrites=true&w=majority&appName=Cluster0'
-try:
-    client = MongoClient(uri, 
-                        server_api=ServerApi('1'),
-                        serverSelectionTimeoutMS=5000)  # Timeout de 5 segundos
-    # Verificar la conexión
-    client.admin.command('ping')
-    print("¡Conexión exitosa a MongoDB!")
-    
-    db = client['inventario']
-    productos_collection = db['productos']
-except Exception as e:
-    print(f"Error de conexión a MongoDB: {e}")
-    exit(1)
+# Conectar a MongoDB
+client = MongoClient(config.MONGO_URI)
+db = client['Asobi']  # Nombre de tu base de datos
+productos_collection = db['productos']  # Colección para productos
+
+# Añadir productos al iniciar la app (en app.py)
+productos_collection.insert_many([
+    {'nombre': 'Begleri estándar', 'tipo': 'juguetes', 'precio': 200, 'descripcion': 'Begleri medida estandarizanda con contrapesos ligeros hecho a base de paracot', 'imagen_url': 'begleri1.png'},
+    {'nombre': 'Begleri imantado', 'tipo': 'juguetes', 'precio': 300, 'descripcion': 'Begleri medida estandarizanda con contrapesos imantados hecho a base de paracot', 'imagen_url': 'begleri2.png'},
+    {'nombre': 'Llavero estándar', 'tipo': 'keyrings', 'precio': 100, 'descripcion': 'Llavero hecho a base de paracot trenzado tipo militar para booshcraft', 'imagen_url': 'llavero1.png'},
+    {'nombre': 'Pulsera estándar', 'tipo': 'accesorios', 'precio': 250, 'descripcion': 'Pulsera hecha a mano a base de paracot trenzado tipo miltar para booshcraft', 'imagen_url': 'pulsera1.png'}
+])
 
 @app.route('/')
-def index():
-    productos = list(productos_collection.find())
-    return render_template('index.html', productos=productos)
+def home():
+    return render_template('index.html')
 
-@app.route('/add_to_cart/<product_id>')
-def add_to_cart(product_id):
-    if 'cart' not in session:
-        session['cart'] = []
-    session['cart'].append(product_id)
-    flash('Producto agregado al carrito!', 'success')
-    return redirect(url_for('index'))
+@app.route('/productos/<tipo>')
+def productos(tipo):
+    # Obtener productos de un tipo específico desde MongoDB
+    productos = productos_collection.find({'tipo': tipo})
+    return render_template('productos.html', productos=productos)
 
-@app.route('/cart')
-def cart():
-    cart_items = []
-    if 'cart' in session:
-        product_ids = session['cart']
-        cart_items = list(productos_collection.find({'_id': {'$in': product_ids}}))
-    return render_template('cart.html', cart_items=cart_items)
+@app.route('/producto/<producto_id>')
+def producto(producto_id):
+    # Obtener un producto específico
+    producto = productos_collection.find_one({'_id': producto_id})
+    return render_template('producto.html', producto=producto)
 
-@app.route('/remove_from_cart/<product_id>')
-def remove_from_cart(product_id):
-    if 'cart' in session and product_id in session['cart']:
-        session['cart'].remove(product_id)
-        flash('Producto eliminado del carrito', 'info')
-    return redirect(url_for('cart'))
+@app.route('/carrito')
+def carrito():
+    return render_template('carrito.html')
+
+@app.route('/compra')
+def compra():
+    return render_template('compra.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
+
