@@ -58,12 +58,12 @@
         <div class="flex justify-center mt-2">
             <a class="mx-2" href="https://www.instagram.com/jesucristo_nazareno/" target="_blank">
                 <button class="bg-transparent hover:bg-gray-700 text-gray-400 py-1 px-2 rounded">
-                    <img src="static/images/ig.png" width="20" height="auto" alt="Instagram">
+                    <img src="{{ url_for('static', filename='images/ig.png') }}" width="20" height="auto" alt="Instagram">
                 </button>
             </a>
             <a class="mx-2" href="/tiktok" target="_blank">
                 <button class="bg-transparent hover:bg-gray-700 text-gray-400 py-1 px-2 rounded">
-                    <img src="static/images/tiktok.jpg" width="20" height="auto" alt="TikTok">
+                    <img src="{{ url_for('static', filename='images/tiktok.jpg') }}" width="20" height="auto" alt="TikTok">
                 </button>
             </a>
         </div>

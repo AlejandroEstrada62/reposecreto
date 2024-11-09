@@ -79,13 +79,13 @@
             <h1 class="text-3xl font-bold font-sans">Bienvenido a Himo Asobi</h1>
             <div class="flex flex-wrap justify-center gap-8">
                 <a href="/productos/juguetes">
-                    <img src="imagen_juguetes.jpeg" alt="Juguetes" class="w-64 h-64 object-cover rounded-lg shadow-lg hover:scale-105 transition-transform">
+                    <img src="{{ url_for('static', filename='images/imagen_juguetes.jpeg') }}" alt="Juguetes" class="w-64 h-64 object-cover rounded-lg shadow-lg hover:scale-105 transition-transform">
                 </a>
                 <a href="/productos/keyrings">
-                    <img src="imagen_keyrings.jpeg" alt="Keyrings" class="w-64 h-64 object-cover rounded-lg shadow-lg hover:scale-105 transition-transform">
+                    <img src="{{ url_for('static', filename='images/imagen_keyrings.jpeg') }}" alt="Keyrings" class="w-64 h-64 object-cover rounded-lg shadow-lg hover:scale-105 transition-transform">
                 </a>
                 <a href="/productos/accesorios">
-                    <img src="imagen_accesorios.jpeg" alt="Accesorios" class="w-64 h-64 object-cover rounded-lg shadow-lg hover:scale-105 transition-transform">
+                    <img src="{{ url_for('static', filename='images/imagen_accesorios.jpeg') }}" alt="Accesorios" class="w-64 h-64 object-cover rounded-lg shadow-lg hover:scale-105 transition-transform">
                 </a>
             </div>
         </header>
@@ -95,12 +95,12 @@
         <div class="flex justify-center mt-2">
             <a class="mx-2" href="https://www.instagram.com/jesucristo_nazareno/" target="_blank">
                 <button class="bg-transparent hover:bg-gray-700 text-gray-400 py-1 px-2 rounded">
-                    <img src="static/images/ig.png" width="20" height="auto" alt="Instagram">
+                    <img src="{{ url_for('static', filename='images/ig.png') }}" width="20" height="auto" alt="Instagram">
                 </button>
             </a>
             <a class="mx-2" href="/tiktok" target="_blank">
                 <button class="bg-transparent hover:bg-gray-700 text-gray-400 py-1 px-2 rounded">
-                    <img src="static/images/tiktok.jpg" width="20" height="auto" alt="TikTok">
+                    <img src="{{ url_for('static', filename='images/tiktok.jpg') }}" width="20" height="auto" alt="TikTok">
                 </button>
             </a>
         </div>

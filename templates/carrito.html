@@ -40,32 +40,45 @@
         </div>
     </nav>
 
-    <div class="flex flex-col items-center mt-8">
+    <div class="min-h-[calc(100vh-4rem)] flex flex-col items-center justify-start pt-8 px-4">
         <h2 class="text-2xl font-bold mb-6">Carrito</h2>
         {% if items %}
-            <ul class="space-y-6 w-full max-w-2xl">
+            <ul class="space-y-6 w-full max-w-2xl mb-auto">
                 {% for item in items %}
-                    <li class="flex flex-col items-center p-4 border rounded">
-                        <img src="{{ url_for('static', filename='images/' + item['imagen_url']) }}" alt="{{ item['nombre'] }}" style="width: 100px;">
-                        <h3>{{ item['nombre'] }}</h3>
-                        <p>Tipo: {{ item['tipo'] }}</p>
-                        <p>Precio: ${{ item['precio'] }}</p>
-                        <p>Cantidad: {{ item['cantidad'] }}</p>
-                        <p>Subtotal: ${{ item['subtotal'] }}</p>
-                        <form action="{{ url_for('eliminar_del_carrito', index=loop.index0) }}" method="POST">
-                            <button type="submit">Eliminar</button>
+                    <li class="flex flex-col items-center p-4 border rounded shadow-sm hover:shadow-md transition-shadow">
+                        <img src="{{ url_for('static', filename='images/' + item['imagen_url']) }}" 
+                             alt="{{ item['nombre'] }}" 
+                             class="w-24 h-24 object-cover rounded">
+                        <h3 class="font-medium mt-2">{{ item['nombre'] }}</h3>
+                        <p class="text-gray-600">Tipo: {{ item['tipo'] }}</p>
+                        <p class="text-gray-600">Precio: ${{ item['precio'] }}</p>
+                        <p class="text-gray-600">Cantidad: {{ item['cantidad'] }}</p>
+                        <p class="font-medium">Subtotal: ${{ item['subtotal'] }}</p>
+                        <form action="{{ url_for('eliminar_del_carrito', index=loop.index0) }}" method="POST" class="mt-2">
+                            <button type="submit" class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition-colors">
+                                Eliminar
+                            </button>
                         </form>
                     </li>
                 {% endfor %}
             </ul>
-            <div class="flex flex-col items-center mt-8 space-y-4">
-                <h3 class="text-xl">Total: ${{ total }}</h3>
+            <div class="flex flex-col items-center mt-8 space-y-4 mb-8">
+                <h3 class="text-xl font-bold">Total: ${{ total }}</h3>
                 <a href="{{ url_for('compra') }}">
-                    <button type="button" class="px-6 py-2 bg-blue-500 text-white rounded">Proceder al pago</button>
+                    <button type="button" class="px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors">
+                        Proceder al pago
+                    </button>
                 </a>
             </div>
         {% else %}
-            <p class="text-center">Tu carrito está vacío</p>
+            <div class="flex flex-col items-center justify-center flex-grow">
+                <p class="text-center text-gray-600 text-lg">Tu carrito está vacío</p>
+                <a href="/" class="mt-4">
+                    <button class="px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors">
+                        Ir a comprar
+                    </button>
+                </a>
+            </div>
         {% endif %}
     </div>
     <footer class="bg-black text-gray-400 text-center p-4 mt-6">
@@ -73,12 +86,12 @@
         <div class="flex justify-center mt-2">
             <a class="mx-2" href="https://www.instagram.com/jesucristo_nazareno/" target="_blank">
                 <button class="bg-transparent hover:bg-gray-700 text-gray-400 py-1 px-2 rounded">
-                    <img src="static/images/ig.png" width="20" height="auto" alt="Instagram">
+                    <img src="{{ url_for('static', filename='images/ig.png') }}" width="20" height="auto" alt="Instagram">
                 </button>
             </a>
             <a class="mx-2" href="/tiktok" target="_blank">
                 <button class="bg-transparent hover:bg-gray-700 text-gray-400 py-1 px-2 rounded">
-                    <img src="static/images/tiktok.jpg" width="20" height="auto" alt="TikTok">
+                    <img src="{{ url_for('static', filename='images/tiktok.jpg') }}" width="20" height="auto" alt="TikTok">
                 </button>
             </a>
         </div>
