@@ -3,20 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <title>{{ producto['nombre'] }} - Himo Asobi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        hueso: '#FAF9F6',
+                        grisClaro: '#F5F5F5',
+                    },
+                    fontFamily: {
+                        comfortaa: ['Comfortaa', 'cursive'],
+                    },
+                }
+            }
+        }
+    </script>
 </head>
-<body>
-    <nav>
-        <a href="/">Inicio</a>
-        <a href="/carrito">Carrito</a>
+<body class="bg-hueso font-comfortaa">
+    <nav class="bg-grisClaro">
+        <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+            <div class="relative flex h-16 items-center justify-between">
+                <!-- Menú principal -->
+                <div class="flex flex-1 items-center justify-start">
+                    <div class="flex space-x-4">
+                        <a href="/" class="rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-gray-900">Inicio</a>
+                    </div>
+                </div>
+
+                <!-- Icono carrito -->
+                <div class="flex items-center">
+                    <a href="{{ url_for('carrito') }}" class="relative rounded-full p-1 text-gray-700 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">
+                        <img src="{{ url_for('static', filename='images/icono_carrito.jpg') }}" class="h-8 w-8 rounded-full">
+                    </a>
+                </div>
+            </div>
+        </div>
     </nav>
 
-    <h2>{{ producto['nombre'] }}</h2>
-    <img src="{{ producto['imagen_url'] }}" alt="{{ producto['nombre'] }}">
-    <p>{{ producto['descripcion'] }}</p>
-    <p>${{ producto['precio'] }}</p>
-    <form action="/carrito" method="post">
-        <input type="number" name="cantidad" value="1">
-        <button type="submit">Agregar al carrito</button>
-    </form>
+    <div class="flex flex-col items-center mt-8 max-w-2xl mx-auto space-y-4">
+        <h2 class="text-2xl font-bold">{{ producto['nombre'] }}</h2>
+        <img src="{{ url_for('static', filename='images/' + producto['imagen_url']) }}" alt="{{ producto['nombre'] }}" class="w-64 object-cover">
+        <p class="text-center">{{ producto['descripcion'] }}</p>
+        <p class="text-xl">${{ producto['precio'] }}</p>
+        <form method="POST" action="{{ url_for('agregar_al_carrito') }}" class="flex flex-col items-center space-y-4">
+            <input type="hidden" name="producto_id" value="{{ producto['_id']|string }}">
+            <input type="number" name="cantidad" value="1" min="1">
+            <button type="submit">Agregar al carrito</button>
+        </form>
+    </div>
+    <footer class="bg-black text-gray-400 text-center p-4 mt-6">
+        <small>esta pagina es privada, si robas eres malo</small>
+        <div class="flex justify-center mt-2">
+            <a class="mx-2" href="https://www.instagram.com/jesucristo_nazareno/" target="_blank">
+                <button class="bg-transparent hover:bg-gray-700 text-gray-400 py-1 px-2 rounded">
+                    <img src="static/images/ig.png" width="20" height="auto" alt="Instagram">
+                </button>
+            </a>
+            <a class="mx-2" href="/tiktok" target="_blank">
+                <button class="bg-transparent hover:bg-gray-700 text-gray-400 py-1 px-2 rounded">
+                    <img src="static/images/tiktok.jpg" width="20" height="auto" alt="TikTok">
+                </button>
+            </a>
+        </div>
+    </footer>
 </body>
 </html>

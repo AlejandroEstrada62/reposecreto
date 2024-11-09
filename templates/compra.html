@@ -3,17 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <title>Compra - Himo Asobi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        hueso: '#FAF9F6',
+                    },
+                    fontFamily: {
+                        comfortaa: ['Comfortaa', 'cursive'],
+                    },
+                }
+            }
+        }
+    </script>
 </head>
-<body>
-    <nav>
-        <a href="/">Inicio</a>
-    </nav>
-
-    <h2>Pago</h2>
-    <form>
-        <label>Metodo de pago:</label>
-        <button type="button">Tarjeta de Débito/Credito</button>
-        <button type="button">Depósito oxxo</button>
-    </form>
+<body class="bg-hueso font-comfortaa">
+    <div class="flex flex-col items-center mt-8 space-y-6">
+        <h2 class="text-2xl font-bold">Pago</h2>
+        <form class="flex flex-col items-center space-y-4">
+            <label>Metodo de pago:</label>
+            <div class="space-x-4">
+                <button type="button" class="px-4 py-2 border rounded">Tarjeta de Débito/Credito</button>
+                <button type="button" class="px-4 py-2 border rounded">Depósito oxxo</button>
+            </div>
+        </form>
+    </div>
 </body>
 </html>
